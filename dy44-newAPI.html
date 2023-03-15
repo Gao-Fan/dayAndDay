@@ -1,0 +1,29 @@
+<!-- 纯CSS 实现瀑布流布局 -->
+<!-- 
+  grid-template-rows: masonry;
+  兼容性非常差 目前只有火狐浏览器支持
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+  <body>
+    <style>
+      .container {
+        /* 网格布局 */
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 10px;
+        grid-template-rows: masonry;
+      }
+      img {
+        width: 100%;
+        display: block;
+      }
+    </style>  
+  </body>
+</html>

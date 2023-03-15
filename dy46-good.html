@@ -1,0 +1,86 @@
+<!-- 拖拽排序 -->
+<!-- 利用H5的拖动API -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="list">
+    <div draggable="true" class="list-item">1</div>
+    <div draggable="true" class="list-item">2</div>
+    <div draggable="true" class="list-item">3</div>
+    <div draggable="true" class="list-item">4</div>
+    <div draggable="true" class="list-item">5</div>
+  </div>
+</body>
+<script>
+  const list = document.querySelector('.list')
+  let sourceNode; // 表示操作的节点
+  list.ondragstart = e => {
+    setTimeout(() => {
+      e.target.classList.add('moving')
+    }, 0)
+    sourceNode = e.target
+  }
+  list.ondragenter = e => {
+    e.preventDefault()
+    if (e.target === list || e.target === sourceNode) {
+      return
+    }
+    const children = Array.from(list.children)
+    const sourceIndex = children.indexOf(sourceNode)
+    const targentIndex = children.indexOf(e.target)
+    if (sourceIndex < targentIndex) {
+      list.insertBefore(sourceNode, e.target.nextElementSibling)
+      console.log('向下拖动');
+    } else {
+      list.insertBefore(sourceNode, e.target)
+      console.log('向上拖动');
+    }
+  }
+  list.ondragover = e => {
+    e.preventDefault()
+  }
+
+  list.ondragend = e => {
+    e.target.classList.remove('moving')
+  }
+</script>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .list {
+    width: 500px;
+    margin-top: 60px;
+  }
+  .list .list-item {
+    margin-top: 20px;
+    color: #fff;
+    background-color: #336a81;  
+    height: 50px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 20px;
+    line-height: 50px;
+    font-size: 25px;
+    font-weight: 500;
+    border-radius: 6px;
+  }
+  .list-item.moving {
+    background: transparent;
+    color: transparent;
+    border: 1px solid #ccc;
+  }
+</style>
+</html>
